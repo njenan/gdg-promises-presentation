@@ -1,0 +1,19 @@
+{
+  "name": "gdg-promises-presentation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/njenan/gdg-promises-presentation.git"
+  },
+  "author": "Nathan Jenan",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/njenan/gdg-promises-presentation/issues"
+  },
+  "homepage": "https://github.com/njenan/gdg-promises-presentation#readme"
+}
