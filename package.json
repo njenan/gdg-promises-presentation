@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/njenan/gdg-promises-presentation/issues"
   },
-  "homepage": "https://github.com/njenan/gdg-promises-presentation#readme"
+  "homepage": "https://github.com/njenan/gdg-promises-presentation#readme",
+  "dependencies": {
+    "csv": "^1.1.0"
+  }
 }
