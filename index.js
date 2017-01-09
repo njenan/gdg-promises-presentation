@@ -1,17 +1,22 @@
 var fs = require('fs');
 var csv = require('csv');
 
-fs.readFile('./employees.csv', function (err, employeeData) {
-    if (err) {
-        console.error(err);
-        return;
-    }
+var readFile = function (path) {
+    return new Promise(function (resolve, reject) {
+        fs.readFile(path, function (err, data) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(data);
+            }
+        });
+    });
+};
 
-    fs.readFile('./sales.csv', function (err, salesData) {
-        if (err) {
-            console.error(err);
-            return;
-        }
+Promise.all([readFile('./employees.csv'), readFile('./sales.csv')])
+    .then(function (array) {
+        var salesData = array.pop();
+        var employeeData = array.pop();
 
         csv.parse(employeeData, {columns: true}, function (err, employees) {
             if (err) {
@@ -36,7 +41,7 @@ fs.readFile('./employees.csv', function (err, employeeData) {
 
                     return {
                         name: employee.name,
-                        payDue: parseInt(basePay / 24)
+                        payDue: parseInt((basePay / 24) * 0.7)
                     };
                 });
 
@@ -51,4 +56,3 @@ fs.readFile('./employees.csv', function (err, employeeData) {
             });
         });
     });
-});
