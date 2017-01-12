@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/njenan/gdg-promises-presentation#readme",
   "dependencies": {
+    "bluebird": "^3.4.7",
     "csv": "^1.1.0"
   }
 }

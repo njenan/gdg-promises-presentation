@@ -1,19 +1,10 @@
-var fs = require('fs');
+var P = require('bluebird');
+
+var fs = P.promisifyAll(require('fs'));
 var csv = require('csv');
 
-var readFile = function (path) {
-    return new Promise(function (resolve, reject) {
-        fs.readFile(path, function (err, data) {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(data);
-            }
-        });
-    });
-};
 
-Promise.all([readFile('./employees.csv'), readFile('./sales.csv')])
+P.all([fs.readFileAsync('./employees.csv'), fs.readFileAsync('./sales.csv')])
     .then(function (array) {
         var salesData = array.pop();
         var employeeData = array.pop();
