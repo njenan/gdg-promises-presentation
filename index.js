@@ -4,22 +4,22 @@ var fs = P.promisifyAll(require('fs'));
 var csv = P.promisifyAll(require('csv'));
 
 
-P.all([fs.readFileAsync('./employees.csv'), fs.readFileAsync('./sales.csv')])
-    .then(function (array) {
-        var salesData = array.pop();
-        var employeeData = array.pop();
-
-        return P.all([csv.parseAsync(employeeData, {columns: true}), csv.parseAsync(salesData, {columns: true})]);
+P.props({
+    employees: fs.readFileAsync('./employees.csv'),
+    sales: fs.readFileAsync('./sales.csv')
+})
+    .then(function (data) {
+        return P.props({
+            employees: csv.parseAsync(data.employees, {columns: true}),
+            sales: csv.parseAsync(data.sales, {columns: true})
+        });
     })
-    .then(function (array) {
-        var sales = array.pop();
-        var employees = array.pop();
-
-        var calculatedPay = employees.map(function (employee) {
+    .then(function (data) {
+        var calculatedPay = data.employees.map(function (employee) {
             var basePay = parseInt(employee.salary);
 
             if (employee.title === 'Salesperson') {
-                basePay += sales.filter(function (entry) {
+                basePay += data.sales.filter(function (entry) {
                         return entry.employeeName === employee.name;
                     }).pop().totalSalesInDollars * 0.05;
             }
