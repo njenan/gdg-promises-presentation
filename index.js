@@ -55,4 +55,5 @@ Promise.all([readFile('./employees.csv'), readFile('./sales.csv')])
                 });
             });
         });
-    });
+    })
+    .catch(console.error);
